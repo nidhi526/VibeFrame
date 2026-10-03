@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VibeFrame | Create Your Vibe</title>
+
+    <link rel="stylesheet" href="style.css">
+ 
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Vibe<span>Frame</span>
+        </div>
+
+        <div class="nav-tag">
+            Create • Feel • Frame
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            ✨ Your mood, your frame
+        </div>
+
+        <h1>
+            Turn Your <span>Vibe</span><br>
+            Into a Frame.
+        </h1>
+
+        <p>
+            Create a personalized mood card with your own
+            words, mood and aesthetic.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <!-- CUSTOMIZATION PANEL -->
+
+        <section class="panel">
+
+            <h2>Customize Your Vibe</h2>
+
+            <p class="panel-subtitle">
+                Tell us how you're feeling today.
+            </p>
+
+
+            <!-- NAME -->
+
+            <label for="nameInput">
+                Your Name
+            </label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your name"
+                maxlength="25"
+            >
+
+
+            <!-- MOOD -->
+
+            <label>
+                Choose Your Mood
+            </label>
+
+            <div class="moods">
+
+                <button class="mood-btn active"
+                        data-mood="Happy"
+                        data-emoji="😊">
+                    😊
+                    <small>Happy</small>
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="Calm"
+                        data-emoji="😌">
+                    😌
+                    <small>Calm</small>
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="Focused"
+                        data-emoji="📚">
+                    📚
+                    <small>Focused</small>
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="Energetic"
+                        data-emoji="🔥">
+                    🔥
+                    <small>Energy</small>
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="Chill"
+                        data-emoji="🌙">
+                    🌙
+                    <small>Chill</small>
+                </button>
+
+                <button class="mood-btn"
+                        data-mood="Motivated"
+                        data-emoji="✨">
+                    ✨
+                    <small>Motivated</small>
+                </button>
+
+            </div>
+
+
+            <!-- QUOTE -->
+
+            <label for="quoteInput">
+                Your Quote
+            </label>
+
+            <textarea
+                id="quoteInput"
+                placeholder="Write something that represents your vibe..."
+                maxlength="100"
+            ></textarea>
+
+
+            <!-- THEME -->
+
+            <label>
+                Choose Theme
+            </label>
+
+            <div class="themes">
+
+                <button class="theme-btn sunset active"
+                        data-theme="sunset">
+                    Sunset
+                </button>
+
+                <button class="theme-btn ocean"
+                        data-theme="ocean">
+                    Ocean
+                </button>
+
+                <button class="theme-btn night"
+                        data-theme="night">
+                    Night
+                </button>
+
+                <button class="theme-btn candy"
+                        data-theme="candy">
+                    Candy
+                </button>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="action-buttons">
+
+                <button id="generateBtn" class="generate-btn">
+                    ✨ Generate Vibe
+                </button>
+
+                <button id="randomBtn" class="random-btn">
+                    🎲 Random Vibe
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- PREVIEW -->
+
+        <section class="preview">
+
+            <p class="preview-label">
+                YOUR VIBEFRAME
+            </p>
+
+            <div id="vibeFrame" class="vibe-frame sunset">
+
+                <div class="frame-inner">
+
+                    <div class="brand">
+                        VIBEFRAME
+                    </div>
+
+                    <div id="moodEmoji" class="mood-emoji">
+                        😊
+                    </div>
+
+                    <h2 id="moodText">
+                        HAPPY
+                    </h2>
+
+                    <p id="quoteDisplay">
+                        "Good vibes only."
+                    </p>
+
+                    <div class="line"></div>
+
+                    <p id="nameDisplay">
+                        Your Name
+                    </p>
+
+                    <p id="dateDisplay">
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button id="downloadBtn" class="download-btn">
+                ⬇ Download Your Frame
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+            <strong>VibeFrame</strong>
+        </div>
+
+        <p>
+            A mini web project built with HTML, CSS & JavaScript.
+        </p>
+
+        <p>
+            Made with ❤️ for MLSC
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
