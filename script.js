@@ -1,40 +1,126 @@
 // ======================================
-// VibeFrame - JavaScript
+// VIBEFFrame 2.0 - MAIN JAVASCRIPT
 // ======================================
 
 
-// Current selected mood
+// ======================================
+// 1. GET HTML ELEMENTS
+// ======================================
+
+const moodButtons = document.querySelectorAll(".mood-btn");
+const themeButtons = document.querySelectorAll(".theme-btn");
+const moodObjects = document.querySelectorAll(".mood-object");
+
+const vibeFrame = document.getElementById("vibeFrame");
+
+const generateBtn = document.getElementById("generateBtn");
+const randomBtn = document.getElementById("randomBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+
+const nameInput = document.getElementById("nameInput");
+const quoteInput = document.getElementById("quoteInput");
+
+const quoteDisplay = document.getElementById("quoteDisplay");
+const nameDisplay = document.getElementById("nameDisplay");
+const dateDisplay = document.getElementById("dateDisplay");
+
+const moodText = document.getElementById("moodText");
+const moodEmoji = document.getElementById("moodEmoji");
+
+
+// ======================================
+// 2. CURRENT MOOD
+// ======================================
 
 let selectedMood = "Happy";
 let selectedEmoji = "😊";
 
 
 // ======================================
-// MOOD SELECTION
+// 3. MOOD SELECTION
 // ======================================
 
-const moodButtons =
-    document.querySelectorAll(".mood-btn");
-
-
-moodButtons.forEach(button => {
+moodButtons.forEach(function (button) {
 
     button.addEventListener("click", function () {
 
-        // Remove active state
-        moodButtons.forEach(btn => {
+        // Remove active from all mood buttons
+        moodButtons.forEach(function (btn) {
             btn.classList.remove("active");
         });
 
-        // Add active state
+        // Activate clicked mood button
         this.classList.add("active");
 
-        // Store selected mood
-        selectedMood =
-            this.dataset.mood;
+        // Get selected mood and emoji
+        selectedMood = this.dataset.mood;
+        selectedEmoji = this.dataset.emoji;
 
-        selectedEmoji =
-            this.dataset.emoji;
+
+        // --------------------------------------
+        // Hide all mood objects
+        // --------------------------------------
+
+        moodObjects.forEach(function (object) {
+            object.classList.remove("active");
+        });
+
+
+        // --------------------------------------
+        // Show selected mood object
+        // --------------------------------------
+
+        const objectClass =
+            ".object-" + selectedMood.toLowerCase();
+
+        const selectedObject =
+            document.querySelector(objectClass);
+
+        if (selectedObject) {
+            selectedObject.classList.add("active");
+        }
+
+
+        // --------------------------------------
+        // Change mood background
+        // --------------------------------------
+
+        if (vibeFrame) {
+
+            vibeFrame.classList.remove(
+                "mood-happy",
+                "mood-calm",
+                "mood-focused",
+                "mood-energetic",
+                "mood-chill",
+                "mood-motivated"
+            );
+
+            vibeFrame.classList.add(
+                "mood-" + selectedMood.toLowerCase()
+            );
+
+        }
+
+
+        // --------------------------------------
+        // Change mood text
+        // --------------------------------------
+
+        if (moodText) {
+            moodText.innerText =
+                selectedMood.toUpperCase();
+        }
+
+
+        // --------------------------------------
+        // Change emoji
+        // --------------------------------------
+
+        if (moodEmoji) {
+            moodEmoji.innerText =
+                selectedEmoji;
+        }
 
     });
 
@@ -42,43 +128,64 @@ moodButtons.forEach(button => {
 
 
 // ======================================
-// THEME SELECTION
+// 4. THEME SELECTION
 // ======================================
 
-const themeButtons =
-    document.querySelectorAll(".theme-btn");
-
-const vibeFrame =
-    document.getElementById("vibeFrame");
-
-
-themeButtons.forEach(button => {
+themeButtons.forEach(function (button) {
 
     button.addEventListener("click", function () {
 
-        // Remove previous themes
-
-        vibeFrame.classList.remove(
-            "sunset",
-            "ocean",
-            "night",
-            "candy"
-        );
-
-        // Add selected theme
-
-        vibeFrame.classList.add(
-            this.dataset.theme
-        );
-
-
-        // Active theme button
-
-        themeButtons.forEach(btn => {
+        // Remove active from all theme buttons
+        themeButtons.forEach(function (btn) {
             btn.classList.remove("active");
         });
 
+        // Activate clicked theme
         this.classList.add("active");
+
+
+        // --------------------------------------
+        // Remove old theme classes
+        // --------------------------------------
+
+        if (vibeFrame) {
+
+            vibeFrame.classList.remove(
+                "sunset",
+                "ocean",
+                "night",
+                "candy"
+            );
+
+
+            // --------------------------------------
+            // Get selected theme
+            // --------------------------------------
+
+            const selectedTheme =
+                this.dataset.theme;
+
+
+            // --------------------------------------
+            // Apply selected theme
+            // --------------------------------------
+
+            if (selectedTheme) {
+
+                vibeFrame.classList.add(
+                    selectedTheme
+                );
+
+            }
+
+
+            // Debug message
+            console.log(
+                "Theme changed to:",
+                selectedTheme
+            );
+
+        }
 
     });
 
@@ -86,187 +193,440 @@ themeButtons.forEach(button => {
 
 
 // ======================================
-// GENERATE VIBE
+// 5. GENERATE VIBE
 // ======================================
 
-const generateBtn =
-    document.getElementById("generateBtn");
+if (generateBtn) {
 
+    generateBtn.addEventListener(
+        "click",
+        generateVibe
+    );
 
-generateBtn.addEventListener("click", generateVibe);
+}
 
 
 function generateVibe() {
 
+    // Make sure inputs exist
+    if (!nameInput || !quoteInput) {
+        return;
+    }
+
+
     const name =
-        document.getElementById("nameInput").value.trim();
+        nameInput.value.trim();
 
     const quote =
-        document.getElementById("quoteInput").value.trim();
+        quoteInput.value.trim();
 
 
-    // Update emoji
-
-    document.getElementById("moodEmoji")
-        .innerText = selectedEmoji;
-
-
-    // Update mood
-
-    document.getElementById("moodText")
-        .innerText =
-        selectedMood.toUpperCase();
-
-
+    // --------------------------------------
     // Update name
+    // --------------------------------------
 
-    document.getElementById("nameDisplay")
-        .innerText =
-        name || "Your Name";
+    if (nameDisplay) {
+
+        nameDisplay.innerText =
+            name || "Your Name";
+
+    }
 
 
+    // --------------------------------------
     // Update quote
+    // --------------------------------------
 
-    document.getElementById("quoteDisplay")
-        .innerText =
-        quote
-        ? `"${quote}"`
-        : `"Good vibes only."`;
+    if (quoteDisplay) {
+
+        quoteDisplay.innerText =
+            quote
+                ? `"${quote}"`
+                : `"Good vibes only."`;
+
+    }
 
 
-    // Animation
+    // --------------------------------------
+    // Restart animation
+    // --------------------------------------
 
-    vibeFrame.classList.remove("animate");
+    if (vibeFrame) {
 
-    void vibeFrame.offsetWidth;
+        vibeFrame.classList.remove(
+            "animate"
+        );
 
-    vibeFrame.classList.add("animate");
+        void vibeFrame.offsetWidth;
+
+        vibeFrame.classList.add(
+            "animate"
+        );
+
+    }
 
 }
 
 
 // ======================================
-// RANDOM VIBE
+// 6. RANDOM VIBE
 // ======================================
 
-const randomBtn =
-    document.getElementById("randomBtn");
+if (randomBtn) {
+
+    randomBtn.addEventListener(
+        "click",
+        randomVibe
+    );
+
+}
 
 
-const randomQuotes = [
+function randomVibe() {
 
-    "Small steps still move you forward.",
-
-    "Make today count.",
-
-    "Enjoy the little things.",
-
-    "Your vibe creates your world.",
-
-    "Keep going. You are doing great.",
-
-    "Progress over perfection.",
-
-    "Good things take time."
-
-];
-
-
-randomBtn.addEventListener("click", function () {
-
-
+    // --------------------------------------
     // Random mood
+    // --------------------------------------
 
-    const randomMood =
-        Math.floor(
-            Math.random() * moodButtons.length
-        );
+    if (moodButtons.length > 0) {
+
+        const randomMoodIndex =
+            Math.floor(
+                Math.random() *
+                moodButtons.length
+            );
+
+        moodButtons[
+            randomMoodIndex
+        ].click();
+
+    }
 
 
-    moodButtons[randomMood].click();
-
-
+    // --------------------------------------
     // Random theme
+    // --------------------------------------
 
-    const randomTheme =
-        Math.floor(
-            Math.random() * themeButtons.length
-        );
+    if (themeButtons.length > 0) {
+
+        const randomThemeIndex =
+            Math.floor(
+                Math.random() *
+                themeButtons.length
+            );
+
+        themeButtons[
+            randomThemeIndex
+        ].click();
+
+    }
 
 
-    themeButtons[randomTheme].click();
-
-
+    // --------------------------------------
     // Random quote
+    // --------------------------------------
+
+    const randomQuotes = [
+
+        "Small steps still move you forward.",
+
+        "Make today count.",
+
+        "Enjoy the little things.",
+
+        "Your vibe creates your world.",
+
+        "Keep going. You are doing great.",
+
+        "Progress over perfection.",
+
+        "Good things take time.",
+
+        "Create your own sunshine.",
+
+        "Stay true to your vibe."
+
+    ];
+
 
     const randomQuote =
         randomQuotes[
             Math.floor(
-                Math.random() * randomQuotes.length
+                Math.random() *
+                randomQuotes.length
             )
         ];
 
 
-    document.getElementById("quoteInput")
-        .value = randomQuote;
+    if (quoteInput) {
+
+        quoteInput.value =
+            randomQuote;
+
+    }
 
 
-    // Generate
-
+    // Generate frame
     generateVibe();
 
-});
+}
 
 
 // ======================================
-// CURRENT DATE
+// 7. CURRENT DATE
 // ======================================
 
-const today =
-    new Date();
+if (dateDisplay) {
+
+    const today =
+        new Date();
 
 
-const formattedDate =
-    today.toLocaleDateString(
-        "en-IN",
-        {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
+    const formattedDate =
+        today.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+
+    dateDisplay.innerText =
+        formattedDate;
+
+}
+
+
+// ======================================
+// 8. DOWNLOAD FRAME
+// ======================================
+
+if (downloadBtn) {
+
+    downloadBtn.addEventListener(
+        "click",
+        function () {
+
+            const frame =
+                document.getElementById(
+                    "vibeFrame"
+                );
+
+
+            if (!frame) {
+
+                alert(
+                    "Frame could not be found."
+                );
+
+                return;
+
+            }
+
+
+            // Check html2canvas
+            if (
+                typeof html2canvas ===
+                "undefined"
+            ) {
+
+                alert(
+                    "Download library is still loading. Please try again."
+                );
+
+                return;
+
+            }
+
+
+            // Convert frame to image
+            html2canvas(
+                frame,
+                {
+                    scale: 2,
+                    backgroundColor: null,
+                    useCORS: true
+                }
+            )
+            .then(function (canvas) {
+
+                const link =
+                    document.createElement("a");
+
+
+                link.download =
+                    "my-vibeframe.png";
+
+
+                link.href =
+                    canvas.toDataURL(
+                        "image/png"
+                    );
+
+
+                link.click();
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    "Download error:",
+                    error
+                );
+
+                alert(
+                    "Unable to download the frame. Please try again."
+                );
+
+            });
+
+        }
+    );
+
+}
+
+
+// ======================================
+// 9. 3D MOUSE INTERACTION
+// ======================================
+
+const moodScene =
+    document.querySelector(
+        ".mood-scene"
+    );
+
+
+if (moodScene) {
+
+    moodScene.addEventListener(
+        "mousemove",
+        function (event) {
+
+            const rect =
+                moodScene.getBoundingClientRect();
+
+
+            const x =
+                event.clientX -
+                rect.left;
+
+
+            const y =
+                event.clientY -
+                rect.top;
+
+
+            const centerX =
+                rect.width / 2;
+
+
+            const centerY =
+                rect.height / 2;
+
+
+            const rotateX =
+                (centerY - y) / 12;
+
+
+            const rotateY =
+                (x - centerX) / 12;
+
+
+            const activeObject =
+                document.querySelector(
+                    ".mood-object.active"
+                );
+
+
+            if (activeObject) {
+
+                activeObject.style.transform =
+                    `scale(1) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            }
+
         }
     );
 
 
-document.getElementById("dateDisplay")
-    .innerText = formattedDate;
+    moodScene.addEventListener(
+        "mouseleave",
+        function () {
+
+            const activeObject =
+                document.querySelector(
+                    ".mood-object.active"
+                );
+
+
+            if (activeObject) {
+
+                activeObject.style.transform =
+                    "scale(1) rotateX(0deg) rotateY(0deg)";
+
+            }
+
+        }
+    );
+
+}
+
 
 // ======================================
-// DOWNLOAD FRAME
+// 10. INITIAL STATE
 // ======================================
 
-const downloadBtn =
-    document.getElementById("downloadBtn");
+// Show Happy object initially
 
-downloadBtn.addEventListener("click", function () {
+const initialObject =
+    document.querySelector(
+        ".object-happy"
+    );
 
-    const frame =
-        document.getElementById("vibeFrame");
 
-    html2canvas(frame, {
-        scale: 2,
-        backgroundColor: null
-    }).then(function (canvas) {
+if (initialObject) {
 
-        const link =
-            document.createElement("a");
+    initialObject.classList.add(
+        "active"
+    );
 
-        link.download = "my-vibeframe.png";
+}
 
-        link.href =
-            canvas.toDataURL("image/png");
 
-        link.click();
+// Set Happy mood initially
 
-    });
+if (vibeFrame) {
 
-});
+    vibeFrame.classList.add(
+        "mood-happy"
+    );
+
+}
+
+
+// Set Sunset initially
+
+const initialTheme =
+    document.querySelector(
+        ".theme-btn.sunset"
+    );
+
+
+if (initialTheme) {
+
+    initialTheme.classList.add(
+        "active"
+    );
+
+}
+
+
+// ======================================
+// 11. CHECK JAVASCRIPT
+// ======================================
+
+console.log(
+    "VibeFrame JavaScript loaded successfully."
+);

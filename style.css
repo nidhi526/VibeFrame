@@ -267,20 +267,414 @@ textarea:focus {
 }
 
 
-/* PREVIEW */
+/* ======================================
+   VIBEFRAME 2.0 - 3D VIBE ORB
+   ====================================== */
 
+/* Preview becomes a visual experience */
 .preview {
+    perspective: 1000px;
+}
+
+
+/* ======================================
+   3D FRAME
+   ====================================== */
+
+.vibe-frame {
+    position: relative;
+    min-height: 520px;
+    border-radius: 30px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.6s ease,
+        transform 0.2s ease;
+
+    transform-style: preserve-3d;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.20);
+}
+
+
+/* ======================================
+   ORB CONTAINER
+   ====================================== */
+
+.orb-container {
+    position: relative;
+
+    width: 250px;
+    height: 250px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transform-style: preserve-3d;
+
+    animation: orbFloat 4s ease-in-out infinite;
+}
+
+
+/* ======================================
+   MAIN ORB
+   ====================================== */
+
+.orb {
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255, 255, 255, 0.95),
+            rgba(255, 255, 255, 0.35) 12%,
+            rgba(255, 255, 255, 0.10) 35%,
+            rgba(0, 0, 0, 0.08) 70%
+        );
+
+    backdrop-filter: blur(12px);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.65);
+
+    box-shadow:
+        inset -20px -20px 40px rgba(0, 0, 0, 0.15),
+        inset 15px 15px 30px rgba(255, 255, 255, 0.35),
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
+}
+
+
+/* ======================================
+   ORB SHINE
+   ====================================== */
+
+.orb-shine {
+    position: absolute;
+
+    width: 70px;
+    height: 35px;
+
+    top: 25px;
+    left: 40px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.45);
+
+    filter: blur(8px);
+
+    transform:
+        rotate(-25deg);
+
+    pointer-events: none;
+}
+
+
+/* ======================================
+   ORB CONTENT
+   ====================================== */
+
+.orb-content {
+    position: relative;
+
+    z-index: 5;
+
     text-align: center;
+
+    transform:
+        translateZ(40px);
 }
 
-.preview-label {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    color: #999;
-    margin-bottom: 15px;
+
+.mood-emoji {
+    font-size: 58px;
+
+    margin-bottom: 5px;
+
+    filter:
+        drop-shadow(0 8px 10px rgba(0, 0, 0, 0.18));
+
+    animation:
+        emojiFloat 3s ease-in-out infinite;
 }
 
+
+.vibe-frame .mood-emoji {
+    transition:
+        transform 0.3s ease;
+}
+
+
+.vibe-frame #moodText {
+    margin: 0;
+
+    font-size: 22px;
+
+    letter-spacing: 4px;
+
+    color: white;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.30);
+}
+
+
+/* ======================================
+   VIBE INFORMATION
+   ====================================== */
+
+.vibe-info {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    transform:
+        translateZ(30px);
+}
+
+
+.vibe-info #quoteDisplay {
+    max-width: 330px;
+
+    margin: 0 auto 12px;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-style: italic;
+
+    line-height: 1.5;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+
+.vibe-info .line {
+    width: 55px;
+    height: 2px;
+
+    margin: 10px auto;
+
+    background:
+        rgba(255, 255, 255, 0.7);
+
+    border-radius: 10px;
+}
+
+
+.vibe-info #nameDisplay {
+    margin: 0;
+
+    color: white;
+
+    font-weight: 700;
+
+    font-size: 15px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.vibe-info #dateDisplay {
+    margin-top: 6px;
+
+    color:
+        rgba(255, 255, 255, 0.75);
+
+    font-size: 12px;
+}
+
+
+/* ======================================
+   PARTICLES
+   ====================================== */
+
+.particle {
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, 0.8);
+
+    animation:
+        particleFloat 4s ease-in-out infinite;
+}
+
+
+.particle-1 {
+    top: 18%;
+    left: 18%;
+    animation-delay: 0s;
+}
+
+
+.particle-2 {
+    top: 28%;
+    right: 18%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 1s;
+}
+
+
+.particle-3 {
+    bottom: 25%;
+    left: 15%;
+    width: 6px;
+    height: 6px;
+    animation-delay: 2s;
+}
+
+
+.particle-4 {
+    bottom: 18%;
+    right: 20%;
+    width: 10px;
+    height: 10px;
+    animation-delay: 0.5s;
+}
+
+
+.particle-5 {
+    top: 12%;
+    right: 35%;
+    width: 4px;
+    height: 4px;
+    animation-delay: 1.5s;
+}
+
+
+.particle-6 {
+    bottom: 35%;
+    left: 30%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 2.5s;
+}
+
+
+/* ======================================
+   ANIMATIONS
+   ====================================== */
+
+@keyframes orbFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0px)
+            rotateX(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-15px)
+            rotateX(4deg);
+    }
+}
+
+
+@keyframes emojiFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0px);
+    }
+
+    50% {
+        transform:
+            translateY(-6px);
+    }
+}
+
+
+@keyframes particleFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0px)
+            scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform:
+            translateY(-25px)
+            scale(1.3);
+        opacity: 1;
+    }
+}
+
+
+/* ======================================
+   MOBILE
+   ====================================== */
+
+@media (max-width: 500px) {
+
+    .vibe-frame {
+        min-height: 450px;
+    }
+
+    .orb-container {
+        width: 210px;
+        height: 210px;
+    }
+
+    .orb {
+        width: 175px;
+        height: 175px;
+    }
+
+    .mood-emoji {
+        font-size: 48px;
+    }
+
+    .vibe-frame #moodText {
+        font-size: 18px;
+    }
+
+}
 
 /* VIBE FRAME */
 
@@ -519,4 +913,955 @@ footer strong {
         font-size: 14px;
     }
 
+}
+
+/* =========================================
+   VIBEFRAME 3D MOOD SYSTEM
+   ========================================= */
+
+.vibe-frame {
+    position: relative;
+    min-height: 540px;
+    border-radius: 28px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 1000px;
+    transform-style: preserve-3d;
+
+    transition:
+        background 0.8s ease,
+        box-shadow 0.8s ease;
+
+    font-family:
+        "Manrope",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================
+   MOOD SCENE
+   ========================================= */
+
+.mood-scene {
+    position: relative;
+
+    width: 320px;
+    height: 320px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 1000px;
+}
+
+
+/* =========================================
+   ALL MOOD OBJECTS
+   ========================================= */
+
+.mood-object {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        scale(0.75)
+        rotateY(20deg);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.7s ease,
+        visibility 0.5s ease;
+
+    pointer-events: none;
+}
+
+
+.mood-object.active {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        scale(1)
+        rotateY(0deg);
+
+    pointer-events: auto;
+}
+
+
+/* =========================================
+   COMMON OBJECT CONTENT
+   ========================================= */
+
+.object-content {
+    position: relative;
+
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateZ(45px);
+
+    text-align: center;
+}
+
+
+.object-emoji {
+    font-size: 55px;
+
+    line-height: 1;
+
+    margin-bottom: 10px;
+
+    filter:
+        drop-shadow(
+            0 8px 10px rgba(0, 0, 0, 0.20)
+        );
+}
+
+
+.object-label {
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.30);
+}
+
+
+/* =========================================
+   HAPPY — GLASS ORB
+   ========================================= */
+
+.happy-orb {
+
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            rgba(255,255,255,0.95),
+            rgba(255,190,200,0.55) 20%,
+            rgba(220,90,130,0.40) 55%,
+            rgba(110,50,90,0.65) 100%
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.7);
+
+    box-shadow:
+        inset -20px -20px 40px rgba(0,0,0,0.15),
+        inset 20px 20px 35px rgba(255,255,255,0.35),
+        0 0 60px rgba(255,120,160,0.75);
+
+    transform-style: preserve-3d;
+
+    animation:
+        happyFloat 4s ease-in-out infinite;
+}
+
+
+.orb-highlight {
+
+    position: absolute;
+
+    width: 75px;
+    height: 35px;
+
+    top: 25px;
+    left: 42px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.55);
+
+    filter: blur(7px);
+
+    transform:
+        rotate(-25deg);
+}
+
+
+/* =========================================
+   CALM — WATER SPHERE
+   ========================================= */
+
+.water-sphere {
+
+    position: relative;
+
+    width: 215px;
+    height: 215px;
+
+    border-radius: 48% 52% 55% 45%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(220,250,255,0.85),
+            rgba(80,190,230,0.65),
+            rgba(45,90,180,0.80)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.65);
+
+    box-shadow:
+        inset -25px -20px 40px rgba(0,50,120,0.25),
+        inset 20px 20px 35px rgba(255,255,255,0.35),
+        0 0 65px rgba(80,200,255,0.75);
+
+    transform-style: preserve-3d;
+
+    animation:
+        waterFloat 5s ease-in-out infinite;
+}
+
+
+.water-highlight {
+
+    position: absolute;
+
+    width: 80px;
+    height: 30px;
+
+    top: 28px;
+    left: 42px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.5);
+
+    filter: blur(8px);
+
+    transform:
+        rotate(-20deg);
+}
+
+
+/* =========================================
+   FOCUSED — CRYSTAL
+   ========================================= */
+
+.crystal {
+
+    position: relative;
+
+    width: 150px;
+    height: 210px;
+
+    transform-style: preserve-3d;
+
+    transform:
+        rotateX(8deg)
+        rotateY(-20deg);
+
+    animation:
+        crystalFloat 5s ease-in-out infinite;
+}
+
+
+.crystal-face {
+
+    position: absolute;
+
+    width: 150px;
+    height: 210px;
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 25%,
+            82% 100%,
+            18% 100%,
+            0% 25%
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.5);
+
+    backface-visibility: hidden;
+}
+
+
+.crystal-front {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(220,210,255,0.9),
+            rgba(100,75,190,0.75)
+        );
+
+    transform:
+        translateZ(35px);
+}
+
+
+.crystal-left {
+
+    background:
+        linear-gradient(
+            160deg,
+            rgba(80,65,170,0.8),
+            rgba(45,35,100,0.8)
+        );
+
+    transform:
+        rotateY(-45deg)
+        translateZ(35px);
+}
+
+
+.crystal-right {
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(180,160,255,0.75),
+            rgba(75,55,150,0.8)
+        );
+
+    transform:
+        rotateY(45deg)
+        translateZ(35px);
+}
+
+
+.crystal-top {
+
+    height: 100px;
+
+    background:
+        rgba(230,225,255,0.75);
+
+    transform:
+        rotateX(65deg)
+        translateZ(75px);
+}
+
+
+/* =========================================
+   ENERGETIC — FLAME
+   ========================================= */
+
+.flame-container {
+
+    position: relative;
+
+    width: 210px;
+    height: 250px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    animation:
+        flameFloat 1.8s ease-in-out infinite;
+}
+
+
+.flame {
+
+    position: absolute;
+
+    bottom: 20px;
+
+    border-radius:
+        50% 50% 50% 50% /
+        65% 65% 35% 35%;
+
+    transform:
+        rotate(45deg);
+}
+
+
+.flame-outer {
+
+    width: 150px;
+    height: 190px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffcf5a,
+            #ff7048,
+            #c82e5b
+        );
+
+    box-shadow:
+        0 0 50px rgba(255,90,50,0.85);
+}
+
+
+.flame-middle {
+
+    width: 105px;
+    height: 140px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff08a,
+            #ff9b43,
+            #ed4f46
+        );
+}
+
+
+.flame-inner {
+
+    width: 60px;
+    height: 95px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #ffe878,
+            #ff9d32
+        );
+}
+
+
+.flame-container .object-content {
+    position: relative;
+    z-index: 30;
+}
+
+
+/* =========================================
+   CHILL — MOON
+   ========================================= */
+
+.moon {
+
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d8ddff,
+            #8795dc 50%,
+            #434d91
+        );
+
+    box-shadow:
+        inset -25px -20px 40px rgba(20,25,80,0.4),
+        inset 20px 15px 30px rgba(255,255,255,0.3),
+        0 0 65px rgba(120,140,255,0.65);
+
+    animation:
+        moonFloat 6s ease-in-out infinite;
+}
+
+
+.moon-crater {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        rgba(60,70,140,0.22);
+
+    box-shadow:
+        inset 4px 4px 8px rgba(30,35,90,0.2);
+}
+
+
+.crater-1 {
+    width: 30px;
+    height: 30px;
+    top: 45px;
+    left: 45px;
+}
+
+
+.crater-2 {
+    width: 20px;
+    height: 20px;
+    bottom: 50px;
+    right: 55px;
+}
+
+
+.crater-3 {
+    width: 13px;
+    height: 13px;
+    top: 85px;
+    right: 45px;
+}
+
+
+/* =========================================
+   MOTIVATED — GLOWING STAR
+   ========================================= */
+
+.star {
+
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    clip-path:
+        polygon(
+            50% 0%,
+            61% 37%,
+            100% 38%,
+            69% 60%,
+            79% 100%,
+            50% 75%,
+            21% 100%,
+            31% 60%,
+            0% 38%,
+            39% 37%
+        );
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff7bd,
+            #ffd25d 40%,
+            #e9934e 70%,
+            #c85c82
+        );
+
+    filter:
+        drop-shadow(
+            0 0 30px rgba(255,210,90,0.9)
+        );
+
+    animation:
+        starFloat 4s ease-in-out infinite;
+}
+
+
+.star-glow {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        rgba(255,230,120,0.4);
+
+    filter: blur(25px);
+}
+
+
+/* =========================================
+   VIBE INFORMATION
+   ========================================= */
+
+.vibe-info {
+
+    position: relative;
+
+    z-index: 50;
+
+    text-align: center;
+
+    margin-top: 5px;
+
+    transform:
+        translateZ(30px);
+}
+
+
+#quoteDisplay {
+
+    max-width: 330px;
+
+    margin: 0 auto 12px;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    line-height: 1.6;
+
+    font-style: italic;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,0.25);
+}
+
+
+.info-line {
+
+    width: 50px;
+
+    height: 2px;
+
+    margin: 10px auto;
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.7);
+}
+
+
+#nameDisplay {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+#dateDisplay {
+
+    margin-top: 6px;
+
+    color:
+        rgba(255,255,255,0.75);
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   PARTICLES
+   ========================================= */
+
+.particle {
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.8);
+
+    box-shadow:
+        0 0 12px rgba(255,255,255,0.8);
+
+    animation:
+        particleFloat 4s ease-in-out infinite;
+}
+
+
+.particle-1 {
+    top: 15%;
+    left: 18%;
+}
+
+
+.particle-2 {
+    top: 25%;
+    right: 18%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 1s;
+}
+
+
+.particle-3 {
+    bottom: 25%;
+    left: 15%;
+    width: 5px;
+    height: 5px;
+    animation-delay: 2s;
+}
+
+
+.particle-4 {
+    bottom: 20%;
+    right: 15%;
+    width: 9px;
+    height: 9px;
+    animation-delay: 0.5s;
+}
+
+
+.particle-5 {
+    top: 10%;
+    right: 35%;
+    width: 4px;
+    height: 4px;
+    animation-delay: 1.5s;
+}
+
+
+.particle-6 {
+    bottom: 30%;
+    left: 30%;
+    width: 4px;
+    height: 4px;
+    animation-delay: 2.5s;
+}
+
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+
+@keyframes happyFloat {
+
+    0%, 100% {
+        transform: translateY(0) rotateX(0);
+    }
+
+    50% {
+        transform: translateY(-14px) rotateX(4deg);
+    }
+}
+
+
+@keyframes waterFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-12px)
+            rotate(4deg);
+    }
+}
+
+
+@keyframes crystalFloat {
+
+    0%, 100% {
+        transform:
+            rotateX(8deg)
+            rotateY(-20deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            rotateX(12deg)
+            rotateY(20deg)
+            translateY(-12px);
+    }
+}
+
+
+@keyframes flameFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-12px)
+            scale(1.05);
+    }
+}
+
+
+@keyframes moonFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(-3deg);
+    }
+
+    50% {
+        transform:
+            translateY(-14px)
+            rotate(3deg);
+    }
+}
+
+
+@keyframes starFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            rotate(0deg)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translateY(-12px)
+            rotate(8deg)
+            scale(1.04);
+    }
+}
+
+
+@keyframes particleFloat {
+
+    0%, 100% {
+        transform:
+            translateY(0)
+            scale(1);
+
+        opacity: 0.45;
+    }
+
+    50% {
+        transform:
+            translateY(-22px)
+            scale(1.35);
+
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   MOOD BACKGROUNDS
+   ========================================= */
+
+.vibe-frame.mood-happy {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #ffb477,
+            #d8668c 48%,
+            #623c68 100%
+        );
+}
+
+
+.vibe-frame.mood-calm {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #9ee7ef,
+            #4e91d1 48%,
+            #293c78 100%
+        );
+}
+
+
+.vibe-frame.mood-focused {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #9b8ce8,
+            #5d50a8 48%,
+            #27234d 100%
+        );
+}
+
+
+.vibe-frame.mood-energetic {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #ffae63,
+            #e65351 48%,
+            #682e4b 100%
+        );
+}
+
+
+.vibe-frame.mood-chill {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #727fd0,
+            #414a91 48%,
+            #161a3b 100%
+        );
+}
+
+
+.vibe-frame.mood-motivated {
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            #ffd978,
+            #dc8d63 48%,
+            #743d68 100%
+        );
+}
+
+
+.vibe-frame.sunset {
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
+}
+
+.vibe-frame.ocean {
+    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+
+.vibe-frame.night {
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.vibe-frame.candy {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
 }
