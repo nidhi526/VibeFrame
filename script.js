@@ -240,7 +240,6 @@ const formattedDate =
 document.getElementById("dateDisplay")
     .innerText = formattedDate;
 
-
 // ======================================
 // DOWNLOAD FRAME
 // ======================================
@@ -248,14 +247,26 @@ document.getElementById("dateDisplay")
 const downloadBtn =
     document.getElementById("downloadBtn");
 
+downloadBtn.addEventListener("click", function () {
 
-downloadBtn.addEventListener(
-    "click",
-    function () {
+    const frame =
+        document.getElementById("vibeFrame");
 
-        alert(
-            "Download feature can be connected using html2canvas in the next version!"
-        );
+    html2canvas(frame, {
+        scale: 2,
+        backgroundColor: null
+    }).then(function (canvas) {
 
-    }
-);
+        const link =
+            document.createElement("a");
+
+        link.download = "my-vibeframe.png";
+
+        link.href =
+            canvas.toDataURL("image/png");
+
+        link.click();
+
+    });
+
+});
