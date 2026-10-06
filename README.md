@@ -51,9 +51,3 @@ VibeFrame/
 * 🎨 Add custom themes
 * 🖼️ Add more backgrounds
 
-## Author 👩‍💻
-
-**Nidhi Agrawal**
-
-Computer Science & AI/ML
-Vishwakarma Institute of Technology, Pune
